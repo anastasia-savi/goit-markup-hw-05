@@ -21,7 +21,8 @@ body {
   color: var(--brand-text-color);
 }
 
-ul, h4 {
+ul,
+h4 {
   margin: 0;
   padding: 0;
 }
@@ -123,6 +124,8 @@ h3 {
 .link {
   text-decoration: none;
   color: var(--heading-text-color);
+  transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
 }
 
 .link:hover {
@@ -133,9 +136,85 @@ h3 {
   color: var(--brand-text-color);
 }
 
+.current-link::after {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 4px;
+  background-color: var(--brand-text-color);
+  border-radius: 2px;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+}
+
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(46, 47, 66, 0.4);
+  opacity: 1;
+  z-index: 100;
+  transition: opacity 200ms cubic-bezier(0.4, 0, 0.2, 1),
+    visibility 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.is-hidden {
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+}
+
+.modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  min-width: 405px;
+  min-height: 575px;
+  padding: 24px;
+  background: #fcfcfc;
+  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.14), 0px 1px 3px rgba(0, 0, 0, 0.12),
+    0px 2px 1px rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+}
+
+.modal-button {
+  display: flex;
+  border-radius: 50%;
+  margin-left: auto;
+  padding: 8px;
+  background-color: var(--accent-text-color);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  margin-right: 0;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.modal-button:hover {
+  background: #e7e9fc;
+  box-shadow: 0px 1px 6px rgba(46, 47, 66, 0.08),
+    0px 1px 1px rgba(46, 47, 66, 0.16), 0px 2px 1px rgba(46, 47, 66, 0.08);
+  border-radius: 50%;
+}
+
+.modal-button .modal-svg {
+  display: block;
+  fill: #000;
+  width: 8px;
+  height: 8px;
+}
+
 .link2 {
   text-decoration: none;
   color: var(--body-text-color);
+  transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  padding-top: 24px;
+  padding-bottom: 24px;
 }
 
 .link2:hover,
@@ -180,8 +259,8 @@ h3 {
   font-family: var(--basic-font-family);
   width: 170px;
   height: 51px;
-  left: 635px;
-  top: 432px;
+  /* left: 635px;
+  top: 432px; */
   background: var(--brand-text-color);
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
   border-radius: 4px;
@@ -192,18 +271,20 @@ h3 {
   letter-spacing: 0.04em;
   cursor: pointer;
   border: none;
+  transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .button:hover {
-  background: #404bbf;
+  background-color: #404bbf;
   box-shadow: 0px 1px 6px rgba(46, 47, 66, 0.08),
     0px 1px 1px rgba(46, 47, 66, 0.16), 0px 2px 1px rgba(46, 47, 66, 0.08);
 }
 
 .button:focus {
-  left: 20px;
-  top: 156px;
-  background: #404bbf;
+  /* left: 20px;
+  top: 156px; */
+  background-color: #404bbf;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
 }
 
@@ -381,10 +462,6 @@ h3 {
   fill: var(--light-text-color);
 }
 
-/* .social-list-icon .social-list-item + .social-list-item {
-  margin-left: 24px; 
-} */
-
 .social-list-item {
   list-style-type: none;
 }
@@ -398,6 +475,7 @@ h3 {
   border-radius: 50%;
   padding: 12px;
   background-color: var(--brand-text-color);
+  transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .social-list-link:hover,
@@ -440,7 +518,13 @@ h3 {
   border-radius: 4px;
   width: 168px;
   height: 88px;
+  transition: border 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
+
+.customers-list-item-link svg {
+  transition: fill 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
 .customers-list-item-link:hover svg,
 .customers-list-item-link:focus svg {
   fill: var(--brand-text-color);
@@ -531,6 +615,7 @@ h3 {
   border-radius: 50%;
   padding: 8px;
   background-color: hsla(0, 0%, 100%, 10%);
+  transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .footer-social-list-icon .footer-social-list-item + .footer-social-list-item {
@@ -604,17 +689,20 @@ h3 {
   line-height: 1.5;
   letter-spacing: 0.04em;
   cursor: pointer;
+  transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1),
+    color 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .button2:hover {
-  background: var(--brand-text-color);
+  background-color: var(--brand-text-color);
   box-shadow: 0px 3px 1px rgba(0, 0, 0, 0.1), 0px 2px 1px rgba(0, 0, 0, 0.08),
     0px 2px 2px rgba(0, 0, 0, 0.12);
   color: var(--basic-bakground-color);
 }
 
 .button2:focus {
-  background: var(--brand-text-color);
+  background-color: var(--brand-text-color);
   box-shadow: 0px 3px 1px rgba(0, 0, 0, 0.1), 0px 2px 1px rgba(0, 0, 0, 0.08),
     0px 2px 2px rgba(0, 0, 0, 0.12);
   color: var(--basic-bakground-color);
@@ -644,6 +732,7 @@ h3 {
 
 .list-discription {
   box-shadow: 0px 1px 6px rgba(46, 47, 66, 0.08);
+  transition: box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .list-discription:hover,
@@ -660,4 +749,45 @@ h3 {
 
 .header-of-topics {
   margin-bottom: 8px;
+}
+
+.img {
+  position: relative;
+  overflow: hidden;
+}
+
+.overlay::before {
+  content: "";
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url(../images/purple.jpg);
+  transform: translateY(100%);
+  transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.product-img:hover .overlay::before {
+  transform: translateY(0);
+}
+
+.overlay-text {
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  padding: 40px 32px;
+  overflow: hidden;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1, 5;
+  letter-spacing: 0.02em;
+  color: var(--light-text-color);
+  transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.product-img:hover .overlay-text {
+  transform: translateY(-100%);
 }
